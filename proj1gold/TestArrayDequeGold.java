@@ -13,6 +13,10 @@ public class TestArrayDequeGold
 
         for(int i = 0 ; i < 500 ; i++)
         {
+            /*if (i % 5 == 0) {
+                sb.append("size()\n");
+                assertEquals(sb.toString(), ads.size(), sad.size());
+            }*/
             double numberBetweenZeroAndOne = StdRandom.uniform();
 
             if (numberBetweenZeroAndOne < 0.25) {
@@ -21,14 +25,14 @@ public class TestArrayDequeGold
                 //System.out.println(sad.get(0) + " " + ads.get(0));
                 len++;
                 sb.append("addLast(" + i + ")\n");
-                assertEquals(sb.toString(), sad.get(0), ads.get(0));
+                assertEquals(sb.toString(), sad.get(len-1), sad.get(len-1));
                 //assertEquals(sb.toString(), sad.get(0), (Integer)2);
             } else if(numberBetweenZeroAndOne < 0.5) {
                 sad.addFirst(i);
                 ads.addFirst(i);
                 len++;
                 sb.append("addFirst(" + i + ")\n");
-                assertEquals(sb.toString(), sad.get(len-1), ads.get(len-1));
+                assertEquals(sb.toString(), sad.get(0), ads.get(0));
             } else if(numberBetweenZeroAndOne < 0.75 && !sad.isEmpty()) {
                 /*if (ads.isEmpty()) {
                     sb.append("isEmpty()\n");
