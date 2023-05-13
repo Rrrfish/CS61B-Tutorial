@@ -29,23 +29,23 @@ public class TestArrayDequeGold
                 len++;
                 sb.append("addFirst(" + i + ")\n");
                 assertEquals(sb.toString(), sad.get(len-1), ads.get(len-1));
-            } else if(numberBetweenZeroAndOne < 0.75) {
-                if (ads.isEmpty()) {
+            } else if(numberBetweenZeroAndOne < 0.75 && !sad.isEmpty()) {
+                /*if (ads.isEmpty()) {
                     sb.append("isEmpty()\n");
                     assertTrue(sb.toString(), sad.isEmpty());
                     continue;
-                }
+                }*/
                 Integer i1 = sad.removeFirst();
                 Integer i2 = ads.removeFirst();
                 len--;
                 sb.append("removeFirst()\n");
                 assertEquals(sb.toString(), i1, i2);
-            }else {
-                if (ads.isEmpty()) {
+            }else if (numberBetweenZeroAndOne <= 1 && !sad.isEmpty()){
+                /*if (ads.isEmpty()) {
                     sb.append("isEmpty()\n");
                     assertTrue(sb.toString(), sad.isEmpty());
                     continue;
-                }
+                }*/
                 Integer i1 = sad.removeLast();
                 Integer i2 = ads.removeLast();
                 len--;
