@@ -356,7 +356,6 @@ public class Game implements Serializable {
         }
     }
 
-
     /**
      * Method used for autograding and testing the game code. The input string will be a series
      * of characters (for example, "n123sswwdasdassadwas", "n123sss:q", "lwww". The game should
@@ -376,14 +375,14 @@ public class Game implements Serializable {
 
         //TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
 
-        ter.initialize(WIDTH, HEIGHT+6, 0, 0);
+        //ter.initialize(WIDTH, HEIGHT+6, 0, 0);
         String[] inputs = input.split("S");
 
         System.out.println(inputs[0]);
         TETile[][] finalWorldFrame = generateRandomWorld(inputs[0], "String");
-        ter.renderFrame(finalWorldFrame);
+        //ter.renderFrame(finalWorldFrame);
         Player player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png", Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
-
+        player.canDraw = false;
         if(inputs.length > 1)
         {
             class CharIterator implements Iterator<Character> {

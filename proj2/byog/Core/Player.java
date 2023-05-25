@@ -11,6 +11,7 @@ public class Player implements Serializable
     private final String filepath;
     private int playerX;
     private int playerY;
+    public boolean canDraw;
 
 
     public Player(String filepath, int X, int Y, TETile[][] world)
@@ -79,9 +80,12 @@ public class Player implements Serializable
 
     private void movePlayer(int oldX, int oldY,int newX, int newY, TETile[][] world)
     {
-        world[oldX][oldY].draw(oldX, oldY);
-        StdDraw.picture(newX+0.5, newY+0.72, filepath);
-        StdDraw.show();
+        if(canDraw)
+        {
+            world[oldX][oldY].draw(oldX, oldY);
+            StdDraw.picture(newX+0.5, newY+0.72, filepath);
+            StdDraw.show();
+        }
         if (world[newX][newY] == Tileset.LOCKED_DOOR)
         {
             Game.endGame();
