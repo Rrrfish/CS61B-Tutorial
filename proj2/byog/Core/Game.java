@@ -424,24 +424,24 @@ public class Game implements Serializable {
             CharIterator iter = new CharIterator(inputs[1].toCharArray());
 
             while (iter.hasNext()) {
-                if (iter.hasNext()) {
-                    char command = iter.next();
-                    if(iter.next() == ':')
-                    {
-                        if (iter.hasNext()) {
-                            command = iter.next();
-                            if (command == 'Q') {
-                                Game.save(inputs[1], this, player);
-                                return finalWorldFrame;
-                            }
-                            break;
+                char command = iter.next();
+                if(iter.next() == ':')
+                {
+                    if (iter.hasNext()) {
+                        command = iter.next();
+                        if (command == 'Q') {
+                            Game.save(inputs[1], this, player);
+                            return finalWorldFrame;
                         }
+                        break;
                     }
-                    player.userMoveCommand(command, finalWorldFrame);
                 }
+                player.userMoveCommand(command, finalWorldFrame);
             }
+
+            Game.save(inputs[1], this, player);
         }
-        Game.save(inputs[1], this, player);
+
         return finalWorldFrame;
     }
 
