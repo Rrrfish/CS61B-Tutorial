@@ -395,7 +395,7 @@ public class Game implements Serializable {
             inputs = input.split("S");
         }
 
-        System.out.println(inputs[0]);
+        //System.out.println(inputs[0]);
         TETile[][] finalWorldFrame = generateRandomWorld(inputs[0], "String");
         Player player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png", Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
         player.canDraw = false;
@@ -425,7 +425,7 @@ public class Game implements Serializable {
 
             while (iter.hasNext()) {
                 char command = iter.next();
-                if(iter.next() == ':')
+                if(command == ':')
                 {
                     if (iter.hasNext()) {
                         command = iter.next();
