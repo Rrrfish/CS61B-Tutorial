@@ -326,6 +326,7 @@ public class Game implements Serializable {
 
 
         ter.renderFrame(finalWorldFrame);
+        player.canDraw = true;
         player.setPlayerX(player.getPlayerX(), finalWorldFrame);
         while(true)
         {
@@ -389,7 +390,6 @@ public class Game implements Serializable {
 
         System.out.println(inputs[0]);
         TETile[][] finalWorldFrame = generateRandomWorld(inputs[0], "String");
-        //ter.renderFrame(finalWorldFrame);
         Player player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png", Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
         player.canDraw = false;
         if(inputs.length > 1)
@@ -423,7 +423,6 @@ public class Game implements Serializable {
                         if (iter.hasNext()) {
                             command = iter.next();
                             if (command == 'Q') {
-                                System.out.println("Succeed to save game!");
                                 Game.save(inputs[1], this, player);
                                 return finalWorldFrame;
                             }
@@ -432,9 +431,6 @@ public class Game implements Serializable {
                     }
                     player.userMoveCommand(command, finalWorldFrame);
                 }
-            /*char command = iter.next();
-            System.out.println(command);
-            player.userMoveCommand(command, finalWorldFrame);*/
             }
         }
 

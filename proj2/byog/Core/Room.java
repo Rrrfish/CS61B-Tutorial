@@ -86,10 +86,11 @@ public class Room
 
         double orderRandom = RANDOM.nextDouble();
 
-        if(orderRandom < 0.25) order = new int[] {1,2,3,4};
-        else if(orderRandom < 0.5) order = new int[] {3,1,4,2};
-        else if(orderRandom < 0.75) order = new int[] {2,3,1,4};
-        else order = new int[] {4,2,3,1};
+        if(orderRandom < 0.25) order = new int[] {3,3,1,4};
+        else if(orderRandom < 0.35) order = new int[] {3,1,4,3};
+        else if(orderRandom < 0.45) order = new int[] {3,3,1,4};
+        else if(orderRandom < 0.55) order = new int[] {3,2,4,3};
+        else order = new int[] {3,2,3,1};
 
         for(int k = 0 ; k < 4 ; k++)
         {
@@ -110,7 +111,7 @@ public class Room
                         world[Exit.x][Exit.y] = Tileset.FLOOR;
                         nextRoom.generateRoom();
                     }
-                    if( RANDOM.nextDouble() < 0.2) return;
+                    //if( RANDOM.nextDouble() < 0.2) return;
                     break;
                 case 2:
                     //上边
@@ -124,7 +125,7 @@ public class Room
                         world[Exit.x][Exit.y] = Tileset.FLOOR;
                         nextRoom2.generateRoom();
                     }
-                    if( RANDOM.nextDouble() < 0.2) return;
+                    //if( RANDOM.nextDouble() < 0.2) return;
                     break;
                 case 3:
                     //下边
@@ -139,7 +140,7 @@ public class Room
                         world[Exit.x][Exit.y] = Tileset.FLOOR;
                         nextRoom3.generateRoom();
                     }
-                    if( RANDOM.nextDouble() < 0.2) return;
+                    //if( RANDOM.nextDouble() < 0.2) return;
                     break;
                 case 4:
                     //右边
@@ -153,7 +154,7 @@ public class Room
                         world[Exit.x][Exit.y] = Tileset.FLOOR;
                         nextRoom4.generateRoom();
                     }
-                    if( RANDOM.nextDouble() < 0.2) return;
+                    //if( RANDOM.nextDouble() < 0.2) return;
                     break;
 
 
@@ -171,9 +172,17 @@ public class Room
         {
             return 2;
         }
+        else if (random < 0.2)
+        {
+            return 4;
+        }
         else if (random < 0.3)
         {
             return 5;
+        }
+        else if (random < 0.4)
+        {
+            return 6;
         }
         else if (random < 0.5)
         {
