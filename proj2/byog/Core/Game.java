@@ -417,6 +417,7 @@ public class Game implements Serializable {
                             command = iter.next();
                             if (command == 'Q') {
                                 Game.save(inputs[1], this, player);
+                                System.exit(0);
                                 return finalWorldFrame;
                             }
                             break;
@@ -426,6 +427,7 @@ public class Game implements Serializable {
                 }
             }
         }
+        System.exit(0);
         Game.save(inputs[1], this, player);
         return finalWorldFrame;
     }
