@@ -310,7 +310,6 @@ public class Game implements Serializable {
                         break;
                     case 'L':
                         ter.initialize(WIDTH, HEIGHT+headHeight, 0, 0);
-                        //ter.initialize(WIDTH, HEIGHT);
                         finalWorldFrame = generateRandomWorld(openWorld(), "KeyBoard");
                         player = openPlayer();
                         Seed = openWorld();
@@ -384,22 +383,38 @@ public class Game implements Serializable {
         //TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
 
         //ter.initialize(WIDTH, HEIGHT+6, 0, 0);
-        String[] inputs;
-
-        if( input.contains("s"))
+        String seed = null;
+        TETile[][] finalWorldFrame = null;
+        Player player = null;
+        String[] inputs = input.split("s");;
+        if(input.contains("N")||input.contains("n"))
         {
-            inputs = input.split("s");
+            if( input.contains("s"))
+            {
+                inputs = input.split("s");
+            }
+            else
+            {
+                inputs = input.split("S");
+            }
+
+            //System.out.println(inputs[0]);
+            seed = inputs[0];
+            finalWorldFrame = generateRandomWorld(seed, "String");
+            player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png", Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
+            player.canDraw = false;
         }
         else
         {
-            inputs = input.split("S");
+            finalWorldFrame = generateRandomWorld(openWorld(), "String");
+            player = openPlayer();
+            player.canDraw = false;
+            seed = openWorld();
         }
 
-        //System.out.println(inputs[0]);
-        TETile[][] finalWorldFrame = generateRandomWorld(inputs[0], "String");
-        Player player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png", Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
-        player.canDraw = false;
-        if(inputs.length > 1)
+
+
+        if(!input.contains("N")||!input.contains("n")||inputs.length > 1)
         {
             class CharIterator implements Iterator<Character> {
                 private char[] array;
@@ -421,7 +436,9 @@ public class Game implements Serializable {
                 }
             }
 
-            CharIterator iter = new CharIterator(inputs[1].toCharArray());
+            CharIterator iter = null;
+            if(inputs.length > 1) iter = new CharIterator(inputs[1].toCharArray());
+            else iter = new CharIterator(inputs[0].toCharArray());
 
             while (iter.hasNext())
             {
@@ -441,7 +458,8 @@ public class Game implements Serializable {
                 player.userMoveCommand(command, finalWorldFrame);
             }
 
-            Game.save(inputs[1], this, player);
+
+            Game.save(seed, this, player);
         }
 
         return finalWorldFrame;
