@@ -113,14 +113,7 @@ public class Game implements Serializable {
     public static Boolean saveWorld(String worldSeed)
     {
         try
-        {/*
-            FileOutputStream fos = new FileOutputStream("D:\\cs61b\\proj2\\byog\\Core\\saveWorld");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(world);
-
-            oos.flush();
-            oos.close();
-            fos.close();*/
+        {
             FileWriter writer = new FileWriter(new File("D:\\cs61b\\proj2\\byog\\Core\\saveWorld"));
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(worldSeed);
@@ -433,7 +426,7 @@ public class Game implements Serializable {
                 }
             }
         }
-
+        Game.save(inputs[1], this, player);
         return finalWorldFrame;
     }
 
