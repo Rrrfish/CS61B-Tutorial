@@ -347,6 +347,12 @@ public class Game implements Serializable {
                 }
                 player.userMoveCommand(command, finalWorldFrame);
             }
+
+            TETile cur = null;
+            if(!finalWorldFrame[(int)StdDraw.mouseX()][(int)StdDraw.mouseY()].equals(cur))
+            {
+                cur = showCurrentTileUnderMouse(finalWorldFrame);
+            }
         }
     }
 
@@ -431,7 +437,6 @@ public class Game implements Serializable {
         Game.save(inputs[1], this, player);
         return finalWorldFrame;
     }
-/*
 
     public TETile showCurrentTileUnderMouse(TETile[][] world)
     {
@@ -475,7 +480,6 @@ public class Game implements Serializable {
         return curTile;
     }
 
-*/
 
     private void myClearText()
     {
