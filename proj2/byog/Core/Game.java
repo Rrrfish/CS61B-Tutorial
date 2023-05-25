@@ -210,7 +210,7 @@ public class Game implements Serializable {
          */
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
 
-        int randomNumber = 0;
+        long randomNumber = 0;
 
         if(pattern.equals("String"))
         {
@@ -221,7 +221,7 @@ public class Game implements Serializable {
             {
                 randomNum[i] = inputArr[i+1];
             }
-            randomNumber = Integer.parseInt(new String(randomNum));
+            randomNumber = Long.parseLong(new String(randomNum));
         }
         else
         {
@@ -376,7 +376,16 @@ public class Game implements Serializable {
         //TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
 
         //ter.initialize(WIDTH, HEIGHT+6, 0, 0);
-        String[] inputs = input.split("S");
+        String[] inputs;
+
+        if( input.contains("s"))
+        {
+            inputs = input.split("s");
+        }
+        else
+        {
+            inputs = input.split("S");
+        }
 
         System.out.println(inputs[0]);
         TETile[][] finalWorldFrame = generateRandomWorld(inputs[0], "String");
