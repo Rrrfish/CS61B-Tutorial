@@ -431,6 +431,7 @@ public class Game implements Serializable {
         Game.save(inputs[1], this, player);
         return finalWorldFrame;
     }
+/*
 
     public TETile showCurrentTileUnderMouse(TETile[][] world)
     {
@@ -474,6 +475,7 @@ public class Game implements Serializable {
         return curTile;
     }
 
+*/
 
     private void myClearText()
     {
