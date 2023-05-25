@@ -44,7 +44,7 @@ public class Game implements Serializable {
         try
         {
             //D:\cs61b\proj2\byog\Core\savePlayer
-            FileInputStream iis = new FileInputStream("savePlayer");
+            FileInputStream iis = new FileInputStream("savePlayer.txt");
             ObjectInputStream ois = new ObjectInputStream(iis);
 
             player = (Player)ois.readObject();
@@ -71,7 +71,7 @@ public class Game implements Serializable {
         try
         {
             //D:\cs61b\proj2\byog\Core\savePlayer
-            FileOutputStream fos = new FileOutputStream("savePlayer");
+            FileOutputStream fos = new FileOutputStream("savePlayer.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(player);
 
@@ -96,7 +96,7 @@ public class Game implements Serializable {
         try
         {
             //D:\cs61b\proj2\byog\Core\saveWorld
-            BufferedReader br = new BufferedReader(new FileReader("saveWorld"));
+            BufferedReader br = new BufferedReader(new FileReader("saveWorld.txt"));
             seed = br.readLine();
             br.close();
             /* iis = new FileReader("D:\\cs61b\\proj2\\byog\\Core\\saveWorld");
@@ -120,7 +120,7 @@ public class Game implements Serializable {
         try
         {
             //D:\cs61b\proj2\byog\Core\saveWorld
-            FileWriter writer = new FileWriter(new File("saveWorld"));
+            FileWriter writer = new FileWriter(new File("saveWorld.txt"));
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(worldSeed);
             bw.flush();
@@ -141,7 +141,7 @@ public class Game implements Serializable {
         try
         {
             //D:\cs61b\proj2\byog\Core\saveFile
-            FileInputStream iis = new FileInputStream("saveFile");
+            FileInputStream iis = new FileInputStream("saveFile.txt");
             ObjectInputStream ois = new ObjectInputStream(iis);
 
             game = (Game)ois.readObject();
@@ -169,7 +169,7 @@ public class Game implements Serializable {
         try
         {
             //D:\cs61b\proj2\byog\Core\saveFile
-            FileOutputStream fos = new FileOutputStream("saveFile");
+            FileOutputStream fos = new FileOutputStream("saveFile.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(game);
 
@@ -423,11 +423,13 @@ public class Game implements Serializable {
 
             CharIterator iter = new CharIterator(inputs[1].toCharArray());
 
-            while (iter.hasNext()) {
+            while (iter.hasNext())
+            {
                 char command = iter.next();
                 if(command == ':')
                 {
-                    if (iter.hasNext()) {
+                    if (iter.hasNext())
+                    {
                         command = iter.next();
                         if (command == 'Q') {
                             Game.save(inputs[1], this, player);
