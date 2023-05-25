@@ -17,6 +17,8 @@ public class Game implements Serializable {
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 40;
+
+    public static final int headHeight = 6;
     public static Position lockedDoorPos;
     public int worldSeed;
 
@@ -41,7 +43,8 @@ public class Game implements Serializable {
         Player player;
         try
         {
-            FileInputStream iis = new FileInputStream("D:\\cs61b\\proj2\\byog\\Core\\savePlayer");
+            //D:\cs61b\proj2\byog\Core\savePlayer
+            FileInputStream iis = new FileInputStream("savePlayer");
             ObjectInputStream ois = new ObjectInputStream(iis);
 
             player = (Player)ois.readObject();
@@ -67,7 +70,8 @@ public class Game implements Serializable {
     {
         try
         {
-            FileOutputStream fos = new FileOutputStream("D:\\cs61b\\proj2\\byog\\Core\\savePlayer");
+            //D:\cs61b\proj2\byog\Core\savePlayer
+            FileOutputStream fos = new FileOutputStream("savePlayer");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(player);
 
@@ -91,7 +95,8 @@ public class Game implements Serializable {
         String seed;
         try
         {
-            BufferedReader br = new BufferedReader(new FileReader("D:\\cs61b\\proj2\\byog\\Core\\saveWorld"));
+            //D:\cs61b\proj2\byog\Core\saveWorld
+            BufferedReader br = new BufferedReader(new FileReader("saveWorld"));
             seed = br.readLine();
             br.close();
             /* iis = new FileReader("D:\\cs61b\\proj2\\byog\\Core\\saveWorld");
@@ -114,7 +119,8 @@ public class Game implements Serializable {
     {
         try
         {
-            FileWriter writer = new FileWriter(new File("D:\\cs61b\\proj2\\byog\\Core\\saveWorld"));
+            //D:\cs61b\proj2\byog\Core\saveWorld
+            FileWriter writer = new FileWriter(new File("saveWorld"));
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(worldSeed);
             bw.flush();
@@ -134,7 +140,8 @@ public class Game implements Serializable {
         Game game;
         try
         {
-            FileInputStream iis = new FileInputStream("D:\\cs61b\\proj2\\byog\\Core\\saveFile");
+            //D:\cs61b\proj2\byog\Core\saveFile
+            FileInputStream iis = new FileInputStream("saveFile");
             ObjectInputStream ois = new ObjectInputStream(iis);
 
             game = (Game)ois.readObject();
@@ -161,7 +168,8 @@ public class Game implements Serializable {
     {
         try
         {
-            FileOutputStream fos = new FileOutputStream("D:\\cs61b\\proj2\\byog\\Core\\saveFile");
+            //D:\cs61b\proj2\byog\Core\saveFile
+            FileOutputStream fos = new FileOutputStream("saveFile");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(game);
 
@@ -223,7 +231,8 @@ public class Game implements Serializable {
         final Random RANDOM = new Random(randomNumber);
 
 
-        Position startPos = new Position(RANDOM.nextInt(20)+30, RANDOM.nextInt(5)+10);
+        //Position startPos = new Position(RANDOM.nextInt(20)+30, RANDOM.nextInt(5)+10);
+        Position startPos = new Position(40, 30);
 
         Room firstRoom = new Room(RANDOM.nextInt(5)+3, RANDOM.nextInt(5)+3, startPos,
                 new Position(startPos.x-1, startPos.y), finalWorldFrame, RANDOM);
@@ -251,7 +260,8 @@ public class Game implements Serializable {
      */
     public void playWithKeyboard()
     {
-        ter.initialize(WIDTH, HEIGHT+6, 0, 0);
+        ter.initialize(WIDTH, HEIGHT+headHeight, 0, 0);
+        //ter.initialize(WIDTH, HEIGHT);
         StdDraw.setPenColor(StdDraw.WHITE);
         StdDraw.setFont(new Font("large", Font.BOLD, 50));
         StdDraw.text(WIDTH/2.0, HEIGHT*(3.0/4), "CS61B The Game");
@@ -264,11 +274,7 @@ public class Game implements Serializable {
         TETile[][] finalWorldFrame = null;
         Player player = null;
         String Seed = "";
-        /*TETile[][] finalWorldFrame = generateRandomWorld("1891", "KeyBoard");
 
-        ter.renderFrame(finalWorldFrame);
-        Player player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png", Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
-*/
         while(true)
         {
             if (StdDraw.hasNextKeyTyped())
@@ -294,7 +300,8 @@ public class Game implements Serializable {
 
                             }
                         }
-                        ter.initialize(WIDTH, HEIGHT+6, 0, 0);
+                        ter.initialize(WIDTH, HEIGHT+headHeight, 0, 0);
+                        //ter.initialize(WIDTH, HEIGHT);
                         finalWorldFrame = generateRandomWorld(seed.toString(), "KeyBoard");
                         Seed = seed.toString();
                         player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png",
@@ -302,11 +309,10 @@ public class Game implements Serializable {
                         //ter.renderFrame(finalWorldFrame);
                         break;
                     case 'L':
-                        ter.initialize(WIDTH, HEIGHT+6, 0, 0);
+                        ter.initialize(WIDTH, HEIGHT+headHeight, 0, 0);
+                        //ter.initialize(WIDTH, HEIGHT);
                         finalWorldFrame = generateRandomWorld(openWorld(), "KeyBoard");
                         player = openPlayer();
-                        //player.setPlayerX(player.getPlayerX(), finalWorldFrame);
-                        //ter.renderFrame(finalWorldFrame);
                         Seed = openWorld();
                         break;
                     case 'Q':
@@ -321,6 +327,8 @@ public class Game implements Serializable {
         ter.renderFrame(finalWorldFrame);
         player.canDraw = true;
         player.setPlayerX(player.getPlayerX(), finalWorldFrame);
+
+        TETile cur = null;
         while(true)
         {
             if (StdDraw.hasNextKeyTyped())
@@ -348,9 +356,9 @@ public class Game implements Serializable {
                 player.userMoveCommand(command, finalWorldFrame);
             }
 
-            TETile cur = null;
-            if(!finalWorldFrame[(int)StdDraw.mouseX()][(int)StdDraw.mouseY()].equals(cur))
+            if(cur != showCurrentTileUnderMouse(finalWorldFrame))
             {
+                myClearText();
                 cur = showCurrentTileUnderMouse(finalWorldFrame);
             }
         }
@@ -484,7 +492,7 @@ public class Game implements Serializable {
     private void myClearText()
     {
         StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.filledRectangle( WIDTH/2, HEIGHT+3, WIDTH/2, 3.5);
+        StdDraw.filledRectangle( WIDTH/2, HEIGHT+headHeight/2.0, WIDTH/2, headHeight/2.0);
         StdDraw.show();
     }
 

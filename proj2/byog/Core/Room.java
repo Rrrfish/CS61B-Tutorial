@@ -59,7 +59,7 @@ public class Room
     public boolean canGenerateRoom()
     {
         if ( leftBottom.x < 0 || rightTop.x > Game.WIDTH-1 ||
-            leftBottom.y < 0 || rightTop.y > Game.HEIGHT-2) return false;
+            leftBottom.y < 0 || rightTop.y > Game.HEIGHT-1) return false;
 
         for ( int i = leftBottom.x ; i <= rightTop.x ; i++)
         {
@@ -86,11 +86,11 @@ public class Room
 
         double orderRandom = RANDOM.nextDouble();
 
-        if(orderRandom < 0.25) order = new int[] {3,3,1,4};
-        else if(orderRandom < 0.35) order = new int[] {3,1,4,3};
-        else if(orderRandom < 0.45) order = new int[] {3,3,1,4};
-        else if(orderRandom < 0.55) order = new int[] {3,2,4,3};
-        else order = new int[] {3,2,3,1};
+        if(orderRandom < 0.2) order = new int[] {1,4,1,2};
+        else if(orderRandom < 0.4) order = new int[] {2,1,3,4};
+        else if(orderRandom < 0.6) order = new int[] {4,2,1,3};
+        else if(orderRandom < 0.8) order = new int[] {3,2,1,4};
+        else order = new int[] {4,3,2,1};
 
         for(int k = 0 ; k < 4 ; k++)
         {
@@ -118,7 +118,7 @@ public class Room
                     Exit = new Position(RANDOM.nextInt( rightTop.x - (leftBottom.x+1))+leftBottom.x+1, rightTop.y);
                     nextEntrance = new Position(Exit.x, Exit.y+1);
                     nextLeftBottom = new Position( RANDOM.nextInt(Math.min(nextEntrance.x + nextWidth, rightTop.x+1)
-                            -(nextEntrance.x + 1)) -(nextEntrance.x + 1) - nextWidth, nextEntrance.y);
+                            -(nextEntrance.x + 1))- nextWidth, nextEntrance.y);
                     Room nextRoom2 = new Room( nextWidth, nextHeight, nextEntrance, nextLeftBottom, world, RANDOM);
                     if ( nextRoom2.canGenerateRoom() )
                     {
