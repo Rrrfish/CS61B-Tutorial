@@ -97,12 +97,12 @@ public class Room
             {
                 case 1:
                     //左边
-                    Exit = new Position(leftBottom.x, RANDOM.nextInt(leftBottom.y+1, rightTop.y));
+                    Exit = new Position(leftBottom.x, RANDOM.nextInt( rightTop.y-leftBottom.y-1)+leftBottom.y+1);
 
                     nextEntrance = new Position(Exit.x - 1, Exit.y);
 
                     nextRightTop = new Position(leftBottom.x-1,
-                            RANDOM.nextInt(nextEntrance.y+1, Math.min(nextEntrance.y + nextHeight, rightTop.y+1)));
+                            RANDOM.nextInt( Math.min(nextEntrance.y + nextHeight, rightTop.y+1)-(nextEntrance.y+1))+nextEntrance.y+1);
                     nextLeftBottom = new Position(nextRightTop.x - nextWidth, nextRightTop.y - nextHeight);
                     nextRoom = new Room( nextWidth, nextHeight, nextEntrance, nextLeftBottom, world, RANDOM);
                     if ( nextRoom.canGenerateRoom() )
@@ -114,10 +114,10 @@ public class Room
                     break;
                 case 2:
                     //上边
-                    Exit = new Position(RANDOM.nextInt(leftBottom.x+1, rightTop.x), rightTop.y);
+                    Exit = new Position(RANDOM.nextInt( rightTop.x - (leftBottom.x+1))+leftBottom.x+1, rightTop.y);
                     nextEntrance = new Position(Exit.x, Exit.y+1);
-                    nextLeftBottom = new Position( RANDOM.nextInt( nextEntrance.x + 1,
-                            Math.min(nextEntrance.x + nextWidth, rightTop.x+1)) - nextWidth, nextEntrance.y);
+                    nextLeftBottom = new Position( RANDOM.nextInt(Math.min(nextEntrance.x + nextWidth, rightTop.x+1)
+                            -(nextEntrance.x + 1)) -(nextEntrance.x + 1) - nextWidth, nextEntrance.y);
                     Room nextRoom2 = new Room( nextWidth, nextHeight, nextEntrance, nextLeftBottom, world, RANDOM);
                     if ( nextRoom2.canGenerateRoom() )
                     {
@@ -128,10 +128,10 @@ public class Room
                     break;
                 case 3:
                     //下边
-                    Exit = new Position(RANDOM.nextInt(leftBottom.x+1, rightTop.x), leftBottom.y);
+                    Exit = new Position(RANDOM.nextInt(rightTop.x-(leftBottom.x+1))+(leftBottom.x+1), leftBottom.y);
                     nextEntrance = new Position(Exit.x, Exit.y-1);
-                    nextRightTop = new Position( RANDOM.nextInt( nextEntrance.x + 1,
-                            Math.min(nextEntrance.x + nextWidth, rightTop.x+1)), nextEntrance.y);
+                    nextRightTop = new Position( RANDOM.nextInt(Math.min(nextEntrance.x + nextWidth, rightTop.x+1)
+                            -nextEntrance.x + 1)+nextEntrance.x + 1, nextEntrance.y);
                     nextLeftBottom = new Position(nextRightTop.x-nextWidth, nextRightTop.y - nextHeight);
                     Room nextRoom3 = new Room( nextWidth, nextHeight, nextEntrance, nextLeftBottom, world, RANDOM);
                     if ( nextRoom3.canGenerateRoom() )
@@ -143,9 +143,10 @@ public class Room
                     break;
                 case 4:
                     //右边
-                    Exit = new Position(rightTop.x, RANDOM.nextInt(leftBottom.y+1, rightTop.y));
+                    Exit = new Position(rightTop.x, RANDOM.nextInt( rightTop.y-(leftBottom.y+1))+leftBottom.y+1);
                     nextEntrance = new Position(Exit.x+1, Exit.y);
-                    nextLeftBottom = new Position( nextEntrance.x, RANDOM.nextInt(nextEntrance.y-nextHeight+1,nextEntrance.y));
+                    nextLeftBottom = new Position( nextEntrance.x, RANDOM.nextInt(nextEntrance.y-(nextEntrance.y-nextHeight+1))
+                            +nextEntrance.y-nextHeight+1);
                     Room nextRoom4 = new Room( nextWidth, nextHeight, nextEntrance, nextLeftBottom, world, RANDOM);
                     if ( nextRoom4.canGenerateRoom() )
                     {

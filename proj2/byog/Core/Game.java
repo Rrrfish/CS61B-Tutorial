@@ -214,7 +214,6 @@ public class Game implements Serializable {
 
         if(pattern.equals("String"))
         {
-            System.out.println("Try to generate world by typing string!");
             char[] inputArr = seed.toCharArray();
 
             char[] randomNum = new char[seed.length()-1];
@@ -230,11 +229,10 @@ public class Game implements Serializable {
         }
         final Random RANDOM = new Random(randomNumber);
 
-        System.out.println("Succeed to generate world by typing string!");
 
-        Position startPos = new Position(RANDOM.nextInt(30,50), RANDOM.nextInt(10,15));
+        Position startPos = new Position(RANDOM.nextInt(20)+30, RANDOM.nextInt(5)+10);
 
-        Room firstRoom = new Room(RANDOM.nextInt(3,8), RANDOM.nextInt(3,8), startPos,
+        Room firstRoom = new Room(RANDOM.nextInt(5)+3, RANDOM.nextInt(5)+3, startPos,
                 new Position(startPos.x-1, startPos.y), finalWorldFrame, RANDOM);
         firstRoom.generateRoom();
 
@@ -306,7 +304,6 @@ public class Game implements Serializable {
                         ter.initialize(WIDTH, HEIGHT+6, 0, 0);
                         finalWorldFrame = generateRandomWorld(seed.toString(), "KeyBoard");
                         Seed = seed.toString();
-                        System.out.println("new game seed: " + Seed);
                         player = new Player("D:\\cs61b\\proj2\\playerImage2\\idle_1.png",
                                 Game.lockedDoorPos.x, Game.lockedDoorPos.y+1, finalWorldFrame);
                         //ter.renderFrame(finalWorldFrame);
@@ -318,7 +315,6 @@ public class Game implements Serializable {
                         //player.setPlayerX(player.getPlayerX(), finalWorldFrame);
                         //ter.renderFrame(finalWorldFrame);
                         Seed = openWorld();
-                        System.out.println("Load game seed: " + Seed);
                         break;
                     case 'Q':
                         System.exit(0);
@@ -414,13 +410,19 @@ public class Game implements Serializable {
             if (iter.hasNext())
             {
                 char command = iter.next();
-
-                System.out.println(command);
-                if (command == 'Q')
+                while(true)
                 {
-                    System.out.println("Succeed to save game!");
-                    Game.save(inputs[1], this, player);
-                    return finalWorldFrame;
+                    if(iter.hasNext())
+                    {
+                        command = iter.next();
+                        if (command == 'Q')
+                        {
+                            System.out.println("Succeed to save game!");
+                            Game.save(inputs[1], this, player);
+                            return finalWorldFrame;
+                        }
+                        break;
+                    }
                 }
                 player.userMoveCommand(command, finalWorldFrame);
             }
