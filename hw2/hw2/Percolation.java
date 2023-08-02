@@ -6,21 +6,25 @@ import java.util.ArrayList;
 
 public class Percolation {
     private WeightedQuickUnionUF sites;
+    private WeightedQuickUnionUF sites2;
     private boolean[] site;
     private int N;
     private int numberOfOpenSites = 0;
     //private ArrayList<Integer> OpenSitesFirstLayer;
     private int virtualTopSite;
+    private int virtualBottomSite;
     private ArrayList<Integer> OpenSitesLastLayer;
 
     public Percolation( int N )
     {
         virtualTopSite = N*N;
-        sites = new WeightedQuickUnionUF(N*N + 1);
+        virtualBottomSite = N*N+1;
+        sites = new WeightedQuickUnionUF(N*N + 2);
+        sites2 = new WeightedQuickUnionUF(N*N + 1);
         this.N = N;
         site = new boolean[N*N];
         //OpenSitesFirstLayer = new ArrayList<>();
-        OpenSitesLastLayer  = new ArrayList<>();
+        //OpenSitesLastLayer  = new ArrayList<>();
         for(int i = 0 ; i < N*N ; i++)
         {
             site[i] = false;
@@ -40,8 +44,10 @@ public class Percolation {
         if(row == 0)
         {
             sites.union(virtualTopSite, idx);
+            sites2.union(virtualTopSite, idx);
         }
-        if(row == N-1) OpenSitesLastLayer.add(idx);
+        if(row == N-1)
+            sites.union(virtualBottomSite, idx);
 
         site[idx] = true;
         connectAdjacent(row, col);
@@ -58,18 +64,22 @@ public class Percolation {
         if(row > 0 && site[xyTo1D(row-1, col)])
         {
             sites.union(xyTo1D(row-1, col), xyTo1D(row, col));
+            sites2.union(xyTo1D(row-1, col), xyTo1D(row, col));
         }
         if(row < N-1 && site[xyTo1D(row+1, col)])
         {
             sites.union(xyTo1D(row+1, col), xyTo1D(row, col));
+            sites2.union(xyTo1D(row+1, col), xyTo1D(row, col));
         }
         if(col > 0 && site[xyTo1D(row, col-1)])
         {
             sites.union(xyTo1D(row, col-1), xyTo1D(row, col));
+            sites2.union(xyTo1D(row, col-1), xyTo1D(row, col));
         }
         if(col < N-1 && site[xyTo1D(row, col+1)])
         {
             sites.union(xyTo1D(row, col+1), xyTo1D(row, col));
+            sites2.union(xyTo1D(row, col+1), xyTo1D(row, col));
         }
     }
 
@@ -92,7 +102,7 @@ public class Percolation {
             }
         }*/
 
-        return sites.connected(virtualTopSite, xyTo1D(row, col));
+        return sites2.connected(virtualTopSite, xyTo1D(row, col));
     }
 
     public int numberOfOpenSites()
@@ -111,15 +121,7 @@ public class Percolation {
             }
         }*/
 
-        for(int i : OpenSitesLastLayer)
-        {
-            if( sites.connected( virtualTopSite, i))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return sites.connected( virtualTopSite, virtualBottomSite);
     }
     public static void main(String[] args) {}
 }
