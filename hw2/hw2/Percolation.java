@@ -35,41 +35,42 @@ public class Percolation {
             throw new java.lang.IndexOutOfBoundsException();
         }
         int idx = xyTo1D(row, col);
+        System.out.println("idx = " + idx);
         //if(idx < N) OpenSitesFirstLayer.add(idx);
         if(site[idx] == true) return;
-        if(idx < N)
+        if(row == 0)
         {
             sites.union(virtualTopSite, idx);
         }
         if(row == N-1) OpenSitesLastLayer.add(idx);
 
         site[idx] = true;
-        connectAdjacent(idx);
+        connectAdjacent(row, col);
         numberOfOpenSites ++;
     }
 
     private int xyTo1D(int row, int col)
     {
-        return row*N + col;
+        return (row)*N + col;
     }
 
-    private void connectAdjacent(int idx)
+    private void connectAdjacent(int row, int col)
     {
-        if(idx + N < N*N && site[idx + N])
+        if(row > 0 && site[xyTo1D(row-1, col)])
         {
-            sites.union(idx, idx + N);
+            sites.union(xyTo1D(row-1, col), xyTo1D(row, col));
         }
-        if(idx - N > 0 && site[idx - N])
+        if(row < N-1 && site[xyTo1D(row+1, col)])
         {
-            sites.union(idx, idx - N);
+            sites.union(xyTo1D(row+1, col), xyTo1D(row, col));
         }
-        if(idx + 1 < N*N && site[idx + 1])
+        if(col > 0 && site[xyTo1D(row, col-1)])
         {
-            sites.union(idx, idx + 1);
+            sites.union(xyTo1D(row, col-1), xyTo1D(row, col));
         }
-        if(idx - 1 > 0 && site[idx - 1])
+        if(col < N-1 && site[xyTo1D(row, col+1)])
         {
-            sites.union(idx, idx - 1);
+            sites.union(xyTo1D(row, col+1), xyTo1D(row, col));
         }
     }
 
