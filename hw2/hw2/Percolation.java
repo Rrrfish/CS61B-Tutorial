@@ -8,7 +8,7 @@ public class Percolation {
     private WeightedQuickUnionUF sites;
     private boolean[] site;
     private int N;
-    private int numberOfOpenSites;
+    private int numberOfOpenSites = 0;
     //private ArrayList<Integer> OpenSitesFirstLayer;
     private int virtualTopSite;
     private ArrayList<Integer> OpenSitesLastLayer;
@@ -36,13 +36,16 @@ public class Percolation {
         }
         int idx = xyTo1D(row, col);
         //if(idx < N) OpenSitesFirstLayer.add(idx);
+
         if(idx < N)
         {
             sites.union(virtualTopSite, idx);
         }
         if(row == N-1) OpenSitesLastLayer.add(idx);
+
         site[idx] = true;
         connectAdjacent(idx);
+        numberOfOpenSites ++;
     }
 
     private int xyTo1D(int row, int col)
@@ -123,11 +126,6 @@ public class Percolation {
 
         return false;
     }
-    public void main(String[] args)
-    {
-        WeightedQuickUnionUF k = new WeightedQuickUnionUF(20);
-        k.union(2, 3);
-        k.connected(2, 3);
-    }
+    public static void main(String[] args) {}
 }
 
