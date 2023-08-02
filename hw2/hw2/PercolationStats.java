@@ -12,6 +12,8 @@ public class PercolationStats {
 
     public PercolationStats(int N, int T, PercolationFactory pf)
     {
+        if( N <= 0 || T <= 0 ) throw new IllegalArgumentException();
+
         NumSOfOpenSites = new int[T];
         this.T = T;
 

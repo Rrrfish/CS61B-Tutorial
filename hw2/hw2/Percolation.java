@@ -91,13 +91,8 @@ public class Percolation {
                 }
             }
         }*/
-        int idx = xyTo1D(row, col);
-        if(sites.connected(virtualTopSite, idx))
-        {
-            return true;
-        }
 
-        return false;
+        return sites.connected(virtualTopSite, xyTo1D(row, col));
     }
 
     public int numberOfOpenSites()
