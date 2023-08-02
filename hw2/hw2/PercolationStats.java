@@ -8,14 +8,13 @@ public class PercolationStats {
     private int[] NumSOfOpenSites;
     private double squareDeviationOfSamples = 0;
     private int SumNumOfOpenSites = 0;
-    private int T;
+    private int T = 0;
 
     public PercolationStats(int N, int T, PercolationFactory pf)
     {
         if( N <= 0 || T <= 0 ) throw new IllegalArgumentException();
 
         NumSOfOpenSites = new int[T];
-        this.T = T;
 
         for(int i = 0 ; i < T ; i++)
         {
@@ -31,6 +30,7 @@ public class PercolationStats {
                 SumNumOfOpenSites ++;
             }
             NumSOfOpenSites[i] = NumOfOpenSites;
+            this.T ++;
         }
 
     }
@@ -56,11 +56,11 @@ public class PercolationStats {
 
     public double confidenceLow()
     {
-        return Mu - (1.96 * sigma)/Math.sqrt(T);
+        return mean() - (1.96 * stddev())/Math.sqrt(T);
     }
 
     public double confidenceHigh()
     {
-        return Mu + (1.96 * sigma)/Math.sqrt(T);
+        return mean() + (1.96 * stddev())/Math.sqrt(T);
     }
 }
