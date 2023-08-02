@@ -35,7 +35,6 @@ public class Percolation {
             throw new java.lang.IndexOutOfBoundsException();
         }
         int idx = xyTo1D(row, col);
-        System.out.println("idx = " + idx);
         //if(idx < N) OpenSitesFirstLayer.add(idx);
         if(site[idx] == true) return;
         if(row == 0)
