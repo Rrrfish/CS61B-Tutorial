@@ -36,7 +36,7 @@ public class Percolation {
         }
         int idx = xyTo1D(row, col);
         //if(idx < N) OpenSitesFirstLayer.add(idx);
-
+        if(site[idx] == true) return;
         if(idx < N)
         {
             sites.union(virtualTopSite, idx);
