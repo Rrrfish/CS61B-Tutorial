@@ -1,5 +1,6 @@
 package hw3.hash;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
 
@@ -38,14 +39,14 @@ public class TestSimpleOomage {
             }
         }
 
+
         int size = allSimpleOomage.size();
 
-        for(int i = 0 ; i < size-1 ; i++)
+        ArrayList<Integer> checkArray = new ArrayList<>();
+        for(SimpleOomage o : allSimpleOomage)
         {
-            for(int j = i+1 ; j < size ; j++)
-            {
-                assertNotEquals(allSimpleOomage.get(i).hashCode(), allSimpleOomage.get(j).hashCode());
-            }
+            assertFalse(checkArray.contains(o.hashCode()));
+            checkArray.add(o.hashCode());
         }
 
     }
