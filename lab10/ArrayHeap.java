@@ -211,23 +211,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public void changePriority(T item, double priority) {
         /* TODO: Your code here! */
 
-        Stack<Integer> stack = new Stack<>();
-
-        int currentIdx = 1;
-        stack.push(currentIdx);
-        while(!stack.empty())
+        int keyIndex = 1;
+        for(; keyIndex <= size ; keyIndex++)
         {
-            currentIdx = stack.pop();
-            if( contents[currentIdx].item().equals(item) )
+            if( contents[keyIndex].item().equals(item) )
             {
                 break;
             }
-
-            stack.push(rightIndex(currentIdx));
-            stack.push(leftIndex(currentIdx));
         }
-
-        contents[currentIdx].myPriority =  priority;
+        if( priority > contents[keyIndex].myPriority)
+        {
+            contents[keyIndex].myPriority = priority;
+            sink(keyIndex);
+        }
+        else
+        {
+            contents[keyIndex].myPriority = priority;
+            swim(keyIndex);
+        }
 
     }
 
